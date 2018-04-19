@@ -9,12 +9,12 @@ const Otsikko = (props) => {
 
 const Sisalto = (props) => {
     return (
-        <p>
+        <div>
                 
                 <Osa osa={props.osaset[0].nimi} tehtavia={props.osaset[0].tehtavia} />
                 <Osa osa={props.osaset[1].nimi} tehtavia={props.osaset[1].tehtavia} />
                 <Osa osa={props.osaset[2].nimi} tehtavia={props.osaset[2].tehtavia} />
-        </p>
+        </div>
     )
 }
 
