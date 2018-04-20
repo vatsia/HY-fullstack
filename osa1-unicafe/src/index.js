@@ -10,57 +10,53 @@ const Otsikko = (props) => {
     )
 }
 
-const Nappula = (props) => {
+const Button = (props) => {
 
     return(
         <button onClick={props.handler}>{props.teksti}</button>
     )
 }
 
-const Keskiarvo = (props) => {
+const keskiarvo = (props) => {
     let keskiarvo = (props.hyvä + -1 * props.huono) / (props.hyvä + props.neutraali + props.huono)
     
     if(isNaN(keskiarvo)){
         keskiarvo = 0;
     }
 
-    return (
-        <div>
-            keskiarvo: {Number((keskiarvo).toFixed(1))}
-        </div>
-    )
-    
-
+    return Number((keskiarvo).toFixed(1))
 }
 
-const Positiivisia = (props) => {
+const positiivisia = (props) => {
     let positiivisia = ((props.hyvä / (props.hyvä + props.neutraali + props.huono)) * 100)
 
     if(isNaN(positiivisia)){
         positiivisia = 0;
     }
-    return (
-        <p>
-            positiivisia: {Number((positiivisia).toFixed(2))}%
-        </p>
-    )
+
+    return Number((positiivisia).toFixed(2))
+
 }
 
-const Statsit = (props) => {
+const Statistics = (props) => {
 
     return(
         <div>
-            hyvä: {props.hyvä}
-            <br />
-            neutraali: {props.neutraali}
-            <br />
-            huono: {props.huono}
-            <br />
-            <Keskiarvo huono={props.huono} neutraali={props.neutraali} hyvä={props.hyvä}/>
-            <br />
-            <Positiivisia huono={props.huono} neutraali={props.neutraali} hyvä={props.hyvä}/>
-
+            <Statistic text="hyvä" count={props.hyvä} />
+            <Statistic text="neutraali" count={props.neutraali} />
+            <Statistic text="huono" count={props.huono} />
+            <Statistic text="keskiarvo" count={keskiarvo(props)}/>
+            <Statistic text="positiivisia" count={positiivisia(props)} unit="%"/>
         </div>
+    )
+}
+
+const Statistic = (props) => {
+    
+    return (
+        <p>
+            {props.text}: {props.count}{props.unit}
+        </p>
     )
 }
 
@@ -90,11 +86,11 @@ class App extends React.Component {
         return (
             <div>
                 <Otsikko otsikko="anna palautetta" />
-                <Nappula teksti="hyvä" handler={this.hyväHandler} />
-                <Nappula teksti="neutraali" handler={this.neutraaliHandler} />
-                <Nappula teksti="huono" handler={this.huonoHandler}/>
+                <Button teksti="hyvä" handler={this.hyväHandler} />
+                <Button teksti="neutraali" handler={this.neutraaliHandler} />
+                <Button teksti="huono" handler={this.huonoHandler}/>
                 <Otsikko otsikko="statistiikka" />
-                <Statsit hyvä={this.state.hyvä} neutraali={this.state.neutraali} huono={this.state.huono} />
+                <Statistics hyvä={this.state.hyvä} neutraali={this.state.neutraali} huono={this.state.huono} />
             </div>
         )
     }
