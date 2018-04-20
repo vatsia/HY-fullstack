@@ -11,7 +11,6 @@ const Otsikko = (props) => {
 }
 
 const Button = (props) => {
-
     return(
         <button onClick={props.handler}>{props.teksti}</button>
     )
@@ -59,7 +58,6 @@ const Statistics = (props) => {
 }
 
 const Statistic = (props) => {
-    
     return (
         <p>
             {props.text}: {props.count}{props.unit}
@@ -76,26 +74,26 @@ class App extends React.Component {
             hyvä: 0
         }
     }
+    buttonHandler = (tyyppi) => {
+        return() => {
+            if(tyyppi === "hyvä"){
+                this.setState({hyvä: this.state.hyvä + 1})
+            }else if(tyyppi === "neutraali"){
+                this.setState({neutraali: this.state.neutraali + 1})
+            }else if(tyyppi === "huono"){
+                this.setState({huono: this.state.huono + 1})
+            }
+        }
 
-    huonoHandler = () => {
-        this.setState({huono: this.state.huono + 1})
-    }
-
-    neutraaliHandler = () => {
-        this.setState({neutraali: this.state.neutraali + 1})
-    }
-
-    hyväHandler = () => {
-        this.setState({hyvä: this.state.hyvä + 1})
     }
 
     render() {
         return (
             <div>
                 <Otsikko otsikko="anna palautetta" />
-                <Button teksti="hyvä" handler={this.hyväHandler} />
-                <Button teksti="neutraali" handler={this.neutraaliHandler} />
-                <Button teksti="huono" handler={this.huonoHandler}/>
+                <Button teksti="hyvä" handler={this.buttonHandler("hyvä")} />
+                <Button teksti="neutraali" handler={this.buttonHandler("neutraali")} />
+                <Button teksti="huono" handler={this.buttonHandler("huono")}/>
                 <Otsikko otsikko="statistiikka" />
                 <Statistics hyvä={this.state.hyvä} neutraali={this.state.neutraali} huono={this.state.huono} />
             </div>
