@@ -17,16 +17,50 @@ const Nappula = (props) => {
     )
 }
 
+const Keskiarvo = (props) => {
+    let keskiarvo = (props.hyvä + -1 * props.huono) / (props.hyvä + props.neutraali + props.huono)
+    
+    if(isNaN(keskiarvo)){
+        keskiarvo = 0;
+    }
+
+    return (
+        <div>
+            keskiarvo: {Number((keskiarvo).toFixed(1))}
+        </div>
+    )
+    
+
+}
+
+const Positiivisia = (props) => {
+    let positiivisia = ((props.hyvä / (props.hyvä + props.neutraali + props.huono)) * 100)
+
+    if(isNaN(positiivisia)){
+        positiivisia = 0;
+    }
+    return (
+        <p>
+            positiivisia: {Number((positiivisia).toFixed(2))}%
+        </p>
+    )
+}
+
 const Statsit = (props) => {
 
     return(
-        <p>
+        <div>
             hyvä: {props.hyvä}
             <br />
             neutraali: {props.neutraali}
             <br />
             huono: {props.huono}
-        </p>
+            <br />
+            <Keskiarvo huono={props.huono} neutraali={props.neutraali} hyvä={props.hyvä}/>
+            <br />
+            <Positiivisia huono={props.huono} neutraali={props.neutraali} hyvä={props.hyvä}/>
+
+        </div>
     )
 }
 
