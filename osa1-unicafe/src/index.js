@@ -47,21 +47,23 @@ const Statistics = (props) => {
     }
 
     return(
-        <div>
-            <Statistic text="hyvä" count={props.hyvä} />
-            <Statistic text="neutraali" count={props.neutraali} />
-            <Statistic text="huono" count={props.huono} />
-            <Statistic text="keskiarvo" count={keskiarvo(props)}/>
-            <Statistic text="positiivisia" count={positiivisia(props)} unit="%"/>
-        </div>
+        <table>
+            <tbody>
+                <Statistic text="hyvä" count={props.hyvä} />
+                <Statistic text="neutraali" count={props.neutraali} />
+                <Statistic text="huono" count={props.huono} />
+                <Statistic text="keskiarvo" count={keskiarvo(props)}/>
+                <Statistic text="positiivisia" count={positiivisia(props)} unit="%"/>
+            </tbody>
+        </table>
     )
 }
 
 const Statistic = (props) => {
     return (
-        <p>
-            {props.text}: {props.count}{props.unit}
-        </p>
+        <tr>
+            <td>{props.text}</td><td>{props.count}{props.unit}</td>
+        </tr>
     )
 }
 
