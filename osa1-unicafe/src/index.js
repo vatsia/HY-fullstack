@@ -39,6 +39,13 @@ const positiivisia = (props) => {
 }
 
 const Statistics = (props) => {
+    if(props.hyvä < 1 && props.neutraali < 1 && props.huono < 1){
+        return(
+            <p>
+                ei yhtään palautetta annettu
+            </p>
+        )
+    }
 
     return(
         <div>
