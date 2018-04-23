@@ -5,18 +5,39 @@ const Button = (props) => {
     return (
         <button onClick={props.handler}>{props.text}</button>
     )
-  }
+}
+
+const Votes = (props) => {
+
+  return (
+    <p>has {props.votes} votes</p>
+  )
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
+    const pts = {}
+    for(let i = 0; i < anecdotes.length; i++){
+      pts[i] = 0;
+    }
     this.state = {
-      selected: 0
+      selected: 0,
+      points: pts
     }
   }
 
-  buttonHandler(){
+  newAnecdoteHandler(){
       return () => {
             this.setState({selected: this.randomNumber(anecdotes.length - 1)})
+      }
+  }
+
+  voteHandler(){
+      return() => {
+          const newpoints = { ...this.state.points}
+          newpoints[this.state.selected] = newpoints[this.state.selected] + 1
+          this.setState({points: newpoints})
       }
   }
 
@@ -28,8 +49,9 @@ class App extends React.Component {
     return (
       <div>
         {this.props.anecdotes[this.state.selected]}
-        <br />
-        <Button text="next anecdote" handler={this.buttonHandler()}/>
+        <Votes votes={this.state.points[this.state.selected]} />
+        <Button text="next anecdote" handler={this.newAnecdoteHandler()}/>
+        <Button text="vote this anecdote" handler={this.voteHandler()} />
       </div>
     )
   }
