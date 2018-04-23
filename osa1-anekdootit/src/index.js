@@ -14,10 +14,23 @@ const Votes = (props) => {
   )
 }
 
+const MostVotedAnecdote = (props) => {
+
+  return (
+    <div>
+      <h3>
+        Most voted anecdote
+      </h3>
+      <p>{props.mostvoted}</p>
+      <Votes votes={props.votes} />
+    </div>
+  )
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
-    const pts = {}
+    const pts = []
     for(let i = 0; i < anecdotes.length; i++){
       pts[i] = 0;
     }
@@ -35,7 +48,7 @@ class App extends React.Component {
 
   voteHandler(){
       return() => {
-          const newpoints = { ...this.state.points}
+          const newpoints = [ ...this.state.points ]
           newpoints[this.state.selected] = newpoints[this.state.selected] + 1
           this.setState({points: newpoints})
       }
@@ -45,6 +58,19 @@ class App extends React.Component {
       return Math.floor(Math.random() * max)
   }
 
+  findMostVoted(){
+    const pts = [ ...this.state.points ]
+    let max = -1;
+    let index = -1;
+    for(let i = 0; i < pts.length; i++){
+      if(pts[i] > max){
+        max = pts[i];
+        index = i;
+      }
+    }
+    return index;
+  }
+
   render() {
     return (
       <div>
@@ -52,6 +78,8 @@ class App extends React.Component {
         <Votes votes={this.state.points[this.state.selected]} />
         <Button text="next anecdote" handler={this.newAnecdoteHandler()}/>
         <Button text="vote this anecdote" handler={this.voteHandler()} />
+
+        <MostVotedAnecdote mostvoted={this.props.anecdotes[this.findMostVoted()]} votes={this.state.points[this.findMostVoted()]} />
       </div>
     )
   }
