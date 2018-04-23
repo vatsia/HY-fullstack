@@ -1,10 +1,10 @@
 import React from 'react';
 
 const Yhteensa = (props) => {
-    let maara = 0;
-    props.osat.forEach(osa => {
-        maara = maara + osa.tehtavia;
-    });
+    const maara = props.osat.reduce(function (c, arvo){
+        return c + arvo.tehtavia;
+    }, 0);
+    
     return(
         <p>
             yhteensä {maara} tehtävää
