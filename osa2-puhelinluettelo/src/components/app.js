@@ -13,16 +13,20 @@ class App extends React.Component {
 
   addNumber = (event) => {
     event.preventDefault()
-    
     const numberObject = {
-        name: this.state.newName
+            name: this.state.newName
+    }
+    console.log(this.state.persons.indexOf(numberObject) )
+    if(!this.state.persons.some(ps => ps.name === numberObject.name)){
+        const numbers = this.state.persons.concat(numberObject);
+        this.setState({
+            persons: numbers,
+            newName: ''
+        });
+    }else{
+        alert("Numero on jo lisätty!");
     }
 
-    const numbers = this.state.persons.concat(numberObject);
-    this.setState({
-        persons: numbers,
-        newName: ''
-    });
   }
 
   handleNumberChange = (event) => {
