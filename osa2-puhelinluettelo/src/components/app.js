@@ -1,4 +1,6 @@
 import React from 'react';
+import Henkilo from './henkilo.js'
+import Filter from './filter.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -57,7 +59,7 @@ class App extends React.Component {
       return (
       <div>
         <h1>Puhelinluettelo</h1>
-        <p>rajaa näytettäviä <input onChange={this.handleFilterChange} /></p>
+        <Filter handler={this.handleFilterChange}/>
         <h2>Lisää uusi!</h2>
         <form onSubmit={this.addNumber}>
           <div>
@@ -73,7 +75,7 @@ class App extends React.Component {
         <h2>Numerot</h2>
         <table>
             <tbody>
-                {numbersToShow.map(person => <tr key={person.name}><td>{person.name}</td><td>{person.number}</td></tr>)}
+                {numbersToShow.map(person => <Henkilo key={person.name} name={person.name} number={person.number}/>)}
             </tbody>
         </table>
       </div>
