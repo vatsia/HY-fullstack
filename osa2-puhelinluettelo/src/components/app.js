@@ -1,21 +1,25 @@
 import React from 'react';
 import Henkilo from './henkilo.js'
 import Filter from './filter.js'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      persons: [
-        { name: 'Arto Hellas', number: '040-123456' },
-        { name: 'Martti Tienari', number: '040-123456' },
-        { name: 'Arto Järvinen', number: '040-123456' },
-        { name: 'Lea Kutvonen', number: '040-123456' }
-      ],
+      persons: [],
       newName: '',
       newNumber: '',
       filter: ''
     }
+  }
+
+  componentDidMount() {
+      axios
+        .get('http://localhost:3001/persons')
+        .then(response => {
+          this.setState({persons: response.data});
+      })
   }
 
   addNumber = (event) => {
