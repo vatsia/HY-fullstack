@@ -18,6 +18,14 @@ class App extends React.Component {
         console.log('filtteri muuttui')
     }
 
+    handleNameClick = (name) => {
+        return () => {
+            console.log('korvataan filtteri maan nimellä')
+            this.setState({filter: name});
+
+        }
+    }
+
     componentWillMount(){
         axios
         .get('https://restcountries.eu/rest/v2/all')
@@ -45,7 +53,7 @@ class App extends React.Component {
             return(
                 <div>
                     <Search handler={this.handleFilterChange}/>
-                    {countriesToShow.map(country => <p key={country.topLevelDomain}>{country.name}</p>)}
+                    {countriesToShow.map(country => <p onClick={this.handleNameClick(country.name)} key={country.topLevelDomain}>{country.name}</p>)}
                 </div>
             )
         } else{
